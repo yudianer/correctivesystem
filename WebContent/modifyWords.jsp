@@ -14,6 +14,10 @@
 </head>
 <body>
 	<style type="text/css">
+	body{
+		padding-top:20px;
+		padding-left:20px;
+	}
 .seq {
 	display: inline-block;
 	//border: 1px red solid;
@@ -40,6 +44,18 @@
 	font-size: 13px;
 	color: purple;
 }
+.sentenceSeq{
+	font-size:20px;
+	display:inline-block;
+	height:20px;
+	color:#3399FF;
+}
+.font-color,.sentenceSeqColor {
+	color: #E55F5F;
+}
+.sentenceSeqColor{
+	font-size:25px;
+}
 </style>
 	<%
 		List<Customer> customers = (List<Customer>) request.getAttribute("customers");
@@ -54,14 +70,29 @@
 				String[] word_lables =  sentence.split(" ");
 		%>
 	<div id='<%=customer.getId()%>' class='sentence'>
-
+		<span class='sentenceSeq'>SentNO.<%=customer.getId()%>:&nbsp;&nbsp;</span>
 		<%
-				for(String word_lable : word_lables){	
+				//for(String word_lable : word_lables){	
+					//String word =null;
+					//String lable= null;
+					//if(word_lable.indexOf("/") != -1){
+						//word = word_lable.split("/")[0];
+						//lable = word_lable.split("/")[1];
+					//}else{
+						//continue;
+					//}
+					for(String word_lable : word_lables){	
 					String word =null;
 					String lable= null;
-					if(word_lable.indexOf("/") != -1){
-						word = word_lable.split("/")[0];
-						lable = word_lable.split("/")[1];
+					if(word_lable.length()>0){
+						if(word_lable.indexOf("/") != -1){
+							word = word_lable.split("/")[0];
+							lable = word_lable.split("/")[1];
+						}else{
+							word=word_lable;
+							lable="";
+							//continue;
+						}
 					}else{
 						continue;
 					}
@@ -77,7 +108,7 @@
 		%>
 		<div class='modify' style='display: none'>
 			<!-- <span class='input'>修改/添加标注：<input name='label' style='width: 100px' class='label-content'></span> -->
-			<span  class='input'>错词修改：<input name='wrong-return' style='width:100px' class='content'></span>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  class='input'>错词修改：<input name='wrong-return' style='width:100px' class='content'></span>
 			&nbsp;&nbsp;
 			<!-- <button sentenceNum='<%=customer.getId()%>' class='save'>save</button> -->
 			<button sentenceNum='<%=customer.getId()%>' hanwen='<%=customer.getHanwen() %>' shuxone='<%=customer.getShuxone() %>' shuxtwo='<%=customer.getShuxtwo() %>' class='save'>save</button>
@@ -97,6 +128,8 @@
 					$(this).addClass('font-color');
 					$('.label').removeClass('label-choosen');
 					$(this).siblings('.label').addClass('label-choosen');
+					$('.sentenceSeq').removeClass('sentenceSeqColor');
+					$(this).parent().siblings('.sentenceSeq').addClass('sentenceSeqColor');
 				});
 				$('.content').keydown(function(event) {
 					if (event.which == 13) {
@@ -122,7 +155,11 @@
 					var finalSentence='';
 					for (var i = 0; i < sentences.length; i++) {
 						sentence=sentences[i];
-						finalSentence+=sentence.children[0].innerHTML+'/'+sentence.children[1].innerHTML+' ';
+						if(sentence.children[1].innerHTML==""){
+							finalSentence+=sentence.children[0].innerHTML+' ';
+						}else{
+							finalSentence+=sentence.children[0].innerHTML+'/'+sentence.children[1].innerHTML+' ';
+						}
 					};
 					//alert(finalSentence);
 					finalSentence=encodeURI(encodeURI($.trim(finalSentence)));
