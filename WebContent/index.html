@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Query System </title>
+	<script type="text/javascript" src='js/jquery-1.11.3.min.js'></script>
+	<style>
+	body{
+		background-color: #3B5A5F;
+	}
+	.choice,.intro{
+			float: left;
+			margin-top: 100px;
+			margin-right: 50px;
+		}
+		.choice{
+			width: 30%;
+			height: 500px;
+			border:1px #0781F5 solid;
+			margin-left:200px;
+			display: inline-block;
+			text-align: center;
+			padding-top: 100px;
+		}
+
+		.choice span{
+			width: 300px;
+			height: 50px;
+			display: block;
+			cursor: pointer;
+			margin: 0 auto;
+			margin-top: 20px;
+			line-height: 50px;
+			text-align: center;
+			background-color: #69BFA6;
+		}
+		.choice span:hover{
+			background-color: #FF6666;
+		}
+		.choice span:hover a{
+			color: white;
+			font-size: 20px;
+		}
+		.choice span a{
+			text-decoration: none;
+			color: #E64356;
+			font-family: 'Times New Roman',Georgia,Serif;
+		}
+
+		.intro{
+			width: 40%;
+			min-height: 700px;
+			border:1px #0781F5 solid;
+			display: inline-block;
+			padding-left: 20px;
+			padding-top: 10px;
+			padding-right: 20px;
+			color: #FF6666;
+			margin-left: 100px;
+		}
+		.intro div{
+			margin-left: 10px;
+			
+		}
+		.intro div {
+			border-bottom: 1px #F76464 solid
+		}
+		.intro div:last-child{
+			border-bottom: 0px ;
+		}
+		/*.intro div p{
+			margin-left: 10px;
+		}*/
+	</style>
+</head>
+<body>
+	<div class='choice'>
+		<span><a href="modifyWords.do">错词修改</a></span>
+		<span><a href="query.do">词性标注</a></span>
+		<span><a href="splitWords.do">分词修改</a></span>
+	</div>
+	<div class='intro'>
+		<h1>Instruction</h1>
+			<div>
+				<h3>ELISA IE Room (Tibetan) Instruction</h3>
+				<div>
+					<p>
+						Thank you for participating Tibetan Room named entity tagging competition!<br>
+					</p>
+					<p>
+						1. Overview<br>
+						The interface has two components. The top panel contains test sentences from one article. You will tag tokens that are person names, geopolitical entity names or organization names. The definition of name types is at https://www.ldc.upenn.edu/sites/www.ldc.upenn.edu/files/english-entities-guidelines-v5.6.6.pdf. The bottom panel shows information including Tibetan dictionary, related sentences with annotation and gazetteers to help you decide which token to tag.
+					</p>
+					<p>
+						2. Tagging<br>
+						In the top section, click one token, then in the input box below the sentence, you should type type a name as 'per (person)', 'gpe (geo-political entity)' or 'org (organization)'. Any content other than these three tags won't be recorded. After you enter the name type and press enter, a tag will show beside the token. Red is 'gpe', blue is 'per' and green is 'org'.
+					</p>
+					<p>
+						3. Information panel<br>
+						When you click one token in the top panel, some related information will be shown in bottom panel. The Tibetan introduction is a brief introduction about written Tibetan language. Each dash box shows Chinese and English translation of selected token. The related words to the selected token in gazetteers will also be shown in the dash box. You can click gazetteer links to get more information. The sentences in the entire corpus that contain the selected token are listed below. The token with grey background is the selected token. The tokens with dash underline have Chinese and English translation. You can hover on these tokens to see the translation.
+					</p>
+				</div>
+			</div>
+			<div>
+				<h3>Tibetan Instruction</h3>
+				<div>
+					<p>
+						The written Tibetan language has 30 consonants, 4 written vowels, and 1 inherent (unwritten) vowel. Spoken Tibetan, however, contains at least 35 consonants and 9 spoken vowels, and the standard pronunciation of written Tibetan uses all 44 of these.
+					</p>
+				</div>
+			</div>
+	</div>
+	<script>
+		$('.choice span').click(function(){
+			$(this).children('a')[0].click();
+		});
+	</script>
+</body>
+</html>
