@@ -5,8 +5,18 @@
 	<title>Query System </title>
 	<script type="text/javascript" src='js/jquery-1.11.3.min.js'></script>
 	<style>
-	body{
+	*{
+		/*margin:0px;*/
+	}
+	body,html{
 		background-color: #3B5A5F;
+		height: 100%;
+	}
+	.function_area{
+		width:100%;
+		height:100%;
+		margin:0 auto;
+		//border:1px red solid;
 	}
 	.choice,.intro{
 			float: left;
@@ -74,10 +84,14 @@
 	</style>
 </head>
 <body>
+<div class='function_area'>
 	<div class='choice'>
-		<span><a href="modifyWords.do">错词修改</a></span>
+		<!-- span><a href="modifyWords.do">错词修改</a></span>
 		<span><a href="query.do">词性标注</a></span>
-		<span><a href="splitWords.do">分词修改</a></span>
+		<span><a href="splitWords.do">分词修改</a></span-->
+		<span><a href="article_choise.do?action=modifyWords.do">错词修改</a></span>
+		<span><a href="article_choise.do?action=query.do">词性标注</a></span>
+		<span><a href="article_choise.do?action=splitWords.do">分词修改</a></span>
 	</div>
 	<div class='intro'>
 		<h1>Instruction</h1>
@@ -110,6 +124,7 @@
 				</div>
 			</div>
 	</div>
+</div>
 	<script>
 		$('.choice span').click(function(){
 			$(this).children('a')[0].click();

@@ -3,6 +3,7 @@ package com.cmli.correctivesystem.dao;
 import java.util.List;
 
 import com.cmli.correctivesystem.domain.Customer;
+import com.cmli.correctivesystem.file.FileNameId;
 
 public interface CustomerDAO {
 	
@@ -24,5 +25,13 @@ public interface CustomerDAO {
 	public Customer get(String minwen);// 根据某个字段获取值
 	
 	public int getId(String minwen);//根据某个字段获取ID
+
+	//public List<FileNameId> getFilesNameAndId();
+
+	public List<Customer> getFile(String fileId);
+
+	public List<Customer> showFile(String fileId);
+
+//	public List<FileNameId> getFilesNameAndId();
 
 }

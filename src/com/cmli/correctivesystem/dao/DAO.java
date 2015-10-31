@@ -11,6 +11,7 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.cmli.correctivesystem.db.JdbcUtils;
+import com.cmli.correctivesystem.file.FileNameId;
 
 /**
  * 数据获取类，不必修改
@@ -80,7 +81,34 @@ public class DAO<T> {
 		
 		return null;
 	}
-	
+	public List<T> getForListFileNameId(String sql,Object ...args){
+		Connection connection =null;
+		try {
+			connection = JdbcUtils.getConnection();
+			return queryRunner.query(connection, sql, new BeanListHandler<T>(clazz), args);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			JdbcUtils.releaseConnection(connection);
+		}
+		
+		return null;
+	}
+//	public List<FileNameId> getForListFileNameId(String sql,Object ...args){
+//		Connection connection =null;
+//		try {
+//			connection = JdbcUtils.getConnection();
+//			return (List<FileNameId>) queryRunner.query(connection, sql, new BeanListHandler<T>(clazz), args);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}finally{
+//			JdbcUtils.releaseConnection(connection);
+//		}
+//		
+//		return null;
+//	}
 	/**
 	 * 获取某个
 	 * @param sql

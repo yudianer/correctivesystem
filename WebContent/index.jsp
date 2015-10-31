@@ -59,6 +59,7 @@
 	<%
 		List<Customer> customers = (List<Customer>) request.getAttribute("customers");
 		if (customers != null && customers.size() > 0) {
+			String fileName=request.getParameter("fileName");//将要显示的文件的名称
 		%>
 
 
@@ -69,7 +70,7 @@
 				String[] word_lables =  sentence.split(" ");
 		%>
 	<div id='<%=customer.getId()%>' class='sentence'>
-		<span class='sentenceSeq'>SentNO.<%=customer.getId()%>:&nbsp;&nbsp;</span>
+		<span class='sentenceSeq'>SentNO.<%=customer.getSentence_no()%>:&nbsp;&nbsp;</span>
 
 		<%
 				for(String word_lable : word_lables){	
@@ -100,7 +101,7 @@
 		%>
 		<div class='modify' style='display: none'>
 			&nbsp;&nbsp;&nbsp;&nbsp;<span class='input'>修改/添加标注：<input name='label' style='width: 100px' class='label-content'></span>&nbsp;&nbsp;
-			<button sentenceNum='<%=customer.getId()%>' hanwen='<%=customer.getHanwen() %>' shuxone='<%=customer.getShuxone() %>' shuxtwo='<%=customer.getShuxtwo() %>' class='save'>save</button>
+			<button sentenceNum='<%=customer.getId()%>' hanwen='<%=customer.getHanwen() %>' shuxone='<%=customer.getShuxone() %>' shuxtwo='<%=customer.getShuxtwo() %>' fileId='<%=customer.getFile_id() %>'sentence_no='<%=customer.getSentence_no() %>' class='save'>save</button>
 		</div>
 		</div>
 	<%
@@ -143,6 +144,7 @@
 					var shuxtwo=$(this).attr('shuxtwo');
 					var hanwen=$(this).attr('hanwen');
 					var sentences=$(this).parent().siblings('.seq');
+					var file_id=$(this).attr('fileId');
 					//var sentence;
 					var finalSentence='';
 					for (var i = 0; i < sentences.length; i++) {
@@ -159,7 +161,7 @@
 					$.ajax({
 						type:"POST",
 						url:"add.do",
-						data:{id:sentenceNum,minwen:finalSentence,hanwen:hanwen,shuxone:shuxone,shuxtwo:shuxtwo}
+						data:{id:sentenceNum,minwen:finalSentence,hanwen:hanwen,shuxone:shuxone,shuxtwo:shuxtwo,sentence_no:sentence_no,file_id:file_id}
 					});
 				});
 			</script>

@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Document</title>
+<title>分词修改</title>
 <script type="text/javascript" src='js/jquery-1.11.3.min.js'></script>
 </head>
 <body>
@@ -76,20 +76,29 @@
 	<%
 		List<Customer> customers = (List<Customer>) request.getAttribute("customers");
 		if (customers != null && customers.size() > 0) {
+			String fileName=new String(request.getParameter("fileName").getBytes("ISO8859_1"));//将要显示的文件的名称
 		%>
-
+		<div>
+			<table>
+				<tr> <td>文章名称</td><td><%=fileName %></td></tr>
+				<tr> <td>操作</td><td>分词修改</td></tr>
+			</table>
+		</div>
 
 	<%
 				int wordsNumber = 0;
 			for (Customer customer : customers) {
 				String sentence = customer.getMinwen();
 				String[] word_lables =  sentence.split(" ");
+				int sentenceNo=customer.getSentence_no();
+				
 		%>
+	
 	<div id='<%=customer.getId()%>' class='sentence-block'>
-		<span class='sentenceSeq'>SentNO.<%=customer.getId()%>:&nbsp;&nbsp;</span></span><span class='sentence'><%=sentence%></span>
+		<span class='sentenceSeq'>SentNO.<%=sentenceNo%>:&nbsp;&nbsp;</span></span><span class='sentence'><%=sentence%></span>
 		<div class='content-block'>
 			&nbsp;&nbsp;&nbsp;&nbsp;正确的分词：<input type="text" name='content' class='content'>
-			<button sentenceNum='<%=customer.getId()%>' hanwen='<%=customer.getHanwen() %>' shuxone='<%=customer.getShuxone() %>' shuxtwo='<%=customer.getShuxtwo() %>' class='save'>save</button>
+			<button sentenceNum='<%=customer.getId()%>' hanwen='<%=customer.getHanwen() %>' shuxone='<%=customer.getShuxone() %>' shuxtwo='<%=customer.getShuxtwo() %>' fileId='<%=customer.getFile_id() %>'sentence_no='<%=customer.getSentence_no() %>'class='save'>save</button>
 
 		</div>
 	</div>
@@ -123,12 +132,14 @@
 					var shuxone=$(this).attr('shuxone');
 					var shuxtwo=$(this).attr('shuxtwo');
 					var hanwen=$(this).attr('hanwen');
+					var sentence_no=$(this).attr('sentence_no');
+					var file_id=$(this).attr('fileId');
 					finalSentence=encodeURI(encodeURI($.trim(finalSentence)));
 					//alert(finalSentence);
 					 $.ajax({
 					 	type:"POST",
 					 	url:'add.do',
-					 	data:{id:sentenceNum,minwen:finalSentence,hanwen:hanwen,shuxone:shuxone,shuxtwo:shuxtwo}
+					 	data:{id:sentenceNum,minwen:finalSentence,hanwen:hanwen,shuxone:shuxone,shuxtwo:shuxtwo,sentence_no:sentence_no,file_id:file_id}
 					 });
 				});
 			</script>
